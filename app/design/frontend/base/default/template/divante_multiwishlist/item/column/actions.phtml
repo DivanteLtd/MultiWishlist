@@ -1,0 +1,26 @@
+<? /** @var Divante_MultiWishlist_Block_Wishlist_Item_Column_Actions $this */ ?>
+
+<? if($this->getWishlistCollection()->getSize() > 1): ?>
+    <div>
+        <label for="wishlist_id[<?= $this->getItem()->getId(); ?>]"><b><?= $this->__('Skopiuj do innego schowka'); ?></b> <br />
+            <select name="copy_wishlist_id[<?= $this->getItem()->getId(); ?>]">
+                <? foreach($this->getWishlistCollection() as $wishlist): ?>
+                    <? if($wishlist->getId() == $this->getCurrentWishlistId()) continue; ?>
+                    <option value="<?= $wishlist->getId() ?>"><?= $wishlist->getName(); ?></option>
+                <? endforeach;?>
+            </select>
+        </label>
+        <button class="button" onclick="copyWishlistItem(<?= $this->getItem()->getId(); ?>)" type="button"><span><span><?= $this->__('Kopiuj'); ?></span></span></button>
+    </div>
+    <div>
+        <label for="wishlist_id"><b><?= $this->__('Przenieś do innego schowka'); ?></b> <br />
+            <select name="move_wishlist_id[<?= $this->getItem()->getId(); ?>]">
+                <? foreach($this->getWishlistCollection() as $wishlist): ?>
+                    <? if($wishlist->getId() == $this->getCurrentWishlistId()) continue; ?>
+                    <option value="<?= $wishlist->getId() ?>"><?= $wishlist->getName(); ?></option>
+                <? endforeach;?>
+            </select>
+        </label>
+        <button class="button" onclick="moveWishlistItem(<?= $this->getItem()->getId(); ?>)" type="button"><span><span><?= $this->__('Przenieś'); ?></span></span></button>
+    </div>
+<? endif; ?>

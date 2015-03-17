@@ -1,0 +1,65 @@
+<? /** @var Divante_MultiWishlist_Block_Actions $this */ ?>
+
+<div>
+    <p><b><?= $this->__('Aktualny schowek'); ?></b></p>
+    <form action="<?= $this->getChangeNameActionUrl() ?>" method="post">
+        <label for="wishlist_id"><?= $this->__('Nazwa'); ?>
+            <input type="text" name="wishlist_name" value="<?= $this->getCurrentWishlistName(); ?>" />
+        </label>
+        <input type="submit" value="<?= $this->__('Zmień nazwę'); ?>" />
+
+        <? if($this->getWishlistCollection()->getSize() > 1): ?>
+            <a href="<?= $this->getDeleteWishlistUrl(); ?>"><?= $this->__('Usuń'); ?></a>
+        <? endif;?>
+    </form>
+
+    <br />
+
+    <? if($this->getWishlistCollection()->getSize() > 1): ?>
+        <div>
+            <form action="<?= $this->getMergeActionUrl() ?>" method="post">
+                <label for="wishlist_id"><b><?= $this->__('Połącz z innym schowkiem'); ?></b> <br />
+                    <select name="wishlist_id">
+                        <? foreach($this->getWishlistCollection() as $wishlist): ?>
+                            <? if($wishlist->getId() == $this->getCurrentWishlistId()) continue; ?>
+                            <option value="<?= $wishlist->getId() ?>"><?= $wishlist->getName(); ?></option>
+                        <? endforeach;?>
+                    </select>
+                </label>
+                <input type="submit" value="<?= $this->__('Połącz'); ?>" />
+            </form>
+        </div>
+    <? endif; ?>
+</div>
+
+<br />
+
+<? if($this->getWishlistCollection()->getSize() > 1): ?>
+    <div>
+        <form action="<?= $this->getChangeWishlistActionUrl() ?>" method="post">
+            <label for="wishlist_id"><b><?= $this->__('Zmiana schowka'); ?></b> <br />
+                <select name="wishlist_id">
+                    <? foreach($this->getWishlistCollection() as $wishlist): ?>
+                        <? if($wishlist->getId() == $this->getCurrentWishlistId()) continue; ?>
+                        <option value="<?= $wishlist->getId() ?>"><?= $wishlist->getName(); ?></option>
+                    <? endforeach;?>
+                </select>
+            </label>
+            <input type="submit" value="<?= $this->__('Zmień'); ?>" />
+        </form>
+    </div>
+<? endif; ?>
+
+<br />
+
+<div>
+    <p><b><?= $this->__('Dodaj nowy schowek'); ?></b></p>
+    <form action="<?= $this->getCreateNewWishlistActionUrl() ?>" method="post">
+        <label for="wishlist_id"><?= $this->__('Nazwa'); ?>
+            <input type="text" name="wishlist_name" />
+        </label>
+        <input type="submit" value="<?= $this->__('Dodaj'); ?>" />
+    </form>
+</div>
+
+<br />
